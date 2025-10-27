@@ -4,35 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wellness Curated - Mastered Health Arsenal</title> 
-    
-    <!-- 1. Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. Configure Tailwind: Define all custom colors and shades FIRST -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'terracotta': '#CC7A6B',
-                        'sage': '#6B8E7B',
-                        'sage-200': '#8F9E94', /* Added this shade for use in your header */
-                        'leaf': '#4A6958',
-                        'cream': '#F8F5EE',
-                        'gold-accent': '#D4AF37', /* Added for a luxurious touch */
-                    },
-                },
-            },
-        }
-    </script>
     
     <style>
         /* Define the Custom Font and Theme */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900;family=Inter:wght@400;600;700&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            /* @apply now uses the custom colors defined above */
             @apply bg-cream text-stone-700;
         }
 
@@ -43,20 +22,40 @@
         /* Luxurious Card Styling */
         .luxury-card {
             @apply bg-white p-6 rounded-xl shadow-2xl transition duration-500 border border-cream/50;
-            /* Custom CSS for the gold-tinged shadow */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(212, 175, 55, 0.2); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(212, 175, 55, 0.2); /* Gold-tinged shadow */
         }
 
         /* Star Styling */
         .star-gold {
             color: #D4AF37; /* Matches gold-accent */
         }
-        
-        /* NOTE: All custom color classes (like .bg-terracotta or .text-cream) 
-           were removed from here because Tailwind's JIT automatically generates them 
-           based on the colors defined in the <script> block above. */
+
+        /* Tailwind Configuration for Styles Block (to ensure custom colors are available) */
+        .bg-terracotta { background-color: #CC7A6B; }
+        .text-cream { color: #F8F5EE; }
+        .text-leaf { color: #4A6958; }
+        .bg-leaf { background-color: #4A6958; }
+        .text-sage-200 { color: #8F9E94; /* approximate light sage */ }
+        .border-gold-accent\/50 { border-color: rgba(212, 175, 55, 0.5); }
+        .hover\:bg-terracotta\/90:hover { background-color: rgba(204, 122, 107, 0.9); }
     </style>
     
+    <script>
+        // Define colors for Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terracotta': '#CC7A6B',
+                        'sage': '#6B8E7B',
+                        'leaf': '#4A6958',
+                        'cream': '#F8F5EE',
+                        'gold-accent': '#D4AF37', /* Added for a luxurious touch */
+                    },
+                },
+            },
+        }
+    </script>
 </head>
 
 <body class="min-h-screen">
@@ -93,8 +92,7 @@
 
             <div class="luxury-card flex flex-col">
                 <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <!-- Placeholder URL added for image resilience -->
-                    <img src="/images/1000003883.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/8F9E94/F8F5EE?text=Energy+Amplifier';" alt="Mitolyn: Woman cheering on a mountain at sunset with a glowing cellular structure, symbolizing energy." class="w-full h-full object-cover">
+                    <img src="/images/1000003883.jpg" alt="Mitolyn: Woman cheering on a mountain at sunset with a glowing cellular structure, symbolizing energy." class="w-full h-full object-cover">
                 </div>
                 
                 <h4 class="text-2xl font-bold text-leaf mb-1 header-font">Mitochondrial Energy Amplifier</h4>
@@ -115,7 +113,7 @@
 
             <div class="luxury-card flex flex-col">
                  <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <img src="/images/1000003884.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/6B8E7B/F8F5EE?text=Prostate+Complex';" alt="ProstaVive: Split image showing a man with back pain at 3:00 AM next to him sleeping soundly at 7:00 AM." class="w-full h-full object-cover">
+                    <img src="/images/1000003884.jpg" alt="ProstaVive: Split image showing a man with back pain at 3:00 AM next to him sleeping soundly at 7:00 AM." class="w-full h-full object-cover">
                 </div>
                 
                 <h4 class="text-2xl font-bold text-leaf mb-1 header-font">Precision Prostate Complex</h4>
@@ -136,7 +134,7 @@
 
             <div class="luxury-card flex flex-col">
                 <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <img src="/images/1000003885.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/4A6958/F8F5EE?text=Auditory+Clarity';" alt="Audifort: Man looking stressed by ringing, contrasted with a smiling man with a balanced ear graphic, indicating auditory relief." class="w-full h-full object-cover">
+                    <img src="/images/1000003885.jpg" alt="Audifort: Man looking stressed by ringing, contrasted with a smiling man with a balanced ear graphic, indicating auditory relief." class="w-full h-full object-cover">
                 </div>
                 
                 <h4 class="text-2xl font-bold text-leaf mb-1 header-font">Auditory Clarity & Nerve Shield</h4>
@@ -157,7 +155,7 @@
 
             <div class="luxury-card flex flex-col">
                 <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <img src="/images/1000003886.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CC7A6B/F8F5EE?text=Oral+Microbiome';" alt="ProDentim: Split image showing dental distress, contrasted with a woman smiling, holding the product, listing benefits for fresh breath and stronger teeth." class="w-full h-full object-cover">
+                    <img src="/images/1000003886.jpg" alt="ProDentim: Split image showing dental distress, contrasted with a woman smiling, holding the product, listing benefits for fresh breath and stronger teeth." class="w-full h-full object-cover">
                 </div>
                 <h4 class="2xl font-bold text-leaf mb-1 header-font">Oral Microbiome Defender</h4>
 
@@ -176,7 +174,7 @@
 
             <div class="luxury-card flex flex-col">
                  <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <img src="/images/1000003887.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D4AF37/F8F5EE?text=Mobility+Elixir';" alt="Joint Genesis: Image of an older man struggling with knee pain contrasted with the same man jogging pain-free with a dog in a park." class="w-full h-full object-cover">
+                    <img src="/images/1000003887.jpg" alt="Joint Genesis: Image of an older man struggling with knee pain contrasted with the same man jogging pain-free with a dog in a park." class="w-full h-full object-cover">
                 </div>
                 <h4 class="text-2xl font-bold text-leaf mb-1 header-font">Mobility & Longevity Elixir</h4>
 
@@ -195,7 +193,7 @@
             
             <div class="luxury-card flex flex-col">
                 <div class="w-full h-48 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden">
-                    <img src="/images/1000003888.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/6B8E7B/F8F5EE?text=Rest+%26+Renewal';" alt="SleepLean: Split image showing a person with slow metabolism and cravings while sleeping, contrasted with fat-burning mode, listing weight management benefits." class="w-full h-full object-cover">
+                    <img src="/images/1000003888.jpg" alt="SleepLean: Split image showing a person with slow metabolism and cravings while sleeping, contrasted with fat-burning mode, listing weight management benefits." class="w-full h-full object-cover">
                 </div>
                 <h4 class="text-2xl font-bold text-leaf mb-1 header-font">Metabolic Rest & Renewal</h4>
 
@@ -238,4 +236,3 @@
 
 </body>
 </html>
-
