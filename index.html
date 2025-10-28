@@ -64,18 +64,34 @@
             margin-bottom: 1rem; /* Adds space below the scroll area */
         }
         
-        /* FAQ Styling - REVERTED */
+        /* --- FAQ STYLING: ACCORDION LOGIC IMPLEMENTED --- */
         .faq-question {
             @apply p-4 cursor-pointer flex justify-between items-center text-lg font-semibold text-leaf bg-white hover:bg-cream/70 border-b border-gold-accent/20 transition duration-200;
         }
-        /* REVERTED: Content is visible by default (no max-height: 0) */
+
+        /* Base style for the answer: initially hidden (max-height 0) */
         .faq-answer {
-            /* Removed max-height: 0 and transition to make it visible */
-            @apply p-4 text-stone-700 bg-cream/70 overflow-visible; 
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Smooth slide transition */
+            @apply text-stone-700 bg-cream/70; 
+            padding: 0 1rem; /* Initial zero vertical padding */
         }
-        .faq-container {
-            @apply border border-gold-accent/30 rounded-xl shadow-lg mb-4;
+
+        /* Class added by JS to show the answer */
+        .faq-answer.active {
+            max-height: 200px; /* A safe, sufficiently large number */
+            @apply p-4; /* Restore vertical padding when active */
         }
+
+        /* Icon rotation for visual feedback */
+        .faq-question .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg); /* Change '+' to 'X' */
+        }
+        /* --- END FAQ STYLING --- */
 
         /* Guarantee Banner Styling */
         .guarantee-banner {
@@ -101,10 +117,7 @@
             },
         }
 
-        // ORIGINAL JS LOGIC RESTORED: This code just sets up Tailwind config and does not interfere with the FAQ state.
-        // If you need the original logic that caused all items to open on click without closing others, 
-        // that original script was actually making all of them behave as a separate toggle (not an accordion).
-        // Since you want the original state (all open by default), we will remove the previous script block entirely.
+        // NO OTHER JS LOGIC IN HEAD
         
     </script>
 </head>
@@ -542,7 +555,7 @@
             
             <h3 class="text-4xl font-bold text-leaf pb-4 mb-8 text-center header-font">Frequently Asked Questions (F.A.Q)</h3>
 
-            <div class="faq-container">
+            <div class="faq-container" id="faq-1">
                 <div class="faq-question rounded-t-xl">
                     <span>What sets these products apart from standard supplements?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
@@ -552,7 +565,7 @@
                 </div>
             </div>
 
-            <div class="faq-container">
+            <div class="faq-container" id="faq-2">
                 <div class="faq-question">
                     <span>How quickly can I expect to see results?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
@@ -562,7 +575,7 @@
                 </div>
             </div>
 
-            <div class="faq-container">
+            <div class="faq-container" id="faq-3">
                 <div class="faq-question">
                     <span>Are these products safe to take with my current medications?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
@@ -572,7 +585,7 @@
                 </div>
             </div>
             
-            <div class="faq-container">
+            <div class="faq-container" id="faq-4">
                 <div class="faq-question rounded-b-xl">
                     <span>What is the money-back guarantee policy?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
@@ -581,8 +594,7 @@
                     <p class="text-sm">All products featured in this collection are backed by a robust **100% Satisfaction Guarantee** provided directly by the **Original Manufacturer**. This allows you to try the product entirely risk-free. Details on the guarantee duration and terms will be available on the final acquisition page after clicking 'Acquire Now.'</p>
                 </div>
             </div>
-
-        </div>
+            </div>
     </section>
 
     <section class="mt-16 p-10 bg-leaf/10 border-t-4 border-b-4 border-gold-accent/50 text-center max-w-7xl mx-auto px-4 shadow-xl">
@@ -609,6 +621,38 @@
             <p class="text-sage-200 text-xs mt-6">&copy; 2025 Wellness Curated. All Rights Reserved. **Affiliate Disclosure** applies to all product links on this page.</p>
         </div>
     </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    
+                    // Check if the current question is already active
+                    const isActive = question.classList.contains('active');
+
+                    // 1. Close all other open FAQs (Accordion behavior)
+                    document.querySelectorAll('.faq-question.active').forEach(activeQuestion => {
+                        if (activeQuestion !== question) {
+                            activeQuestion.classList.remove('active');
+                            activeQuestion.nextElementSibling.classList.remove('active');
+                        }
+                    });
+
+                    // 2. Toggle the clicked FAQ
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.classList.add('active');
+                    } else {
+                        question.classList.remove('active');
+                        answer.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
