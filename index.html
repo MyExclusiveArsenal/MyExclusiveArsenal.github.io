@@ -64,15 +64,14 @@
             margin-bottom: 1rem; /* Adds space below the scroll area */
         }
         
-        /* FAQ Styling */
+        /* FAQ Styling - REVERTED */
         .faq-question {
             @apply p-4 cursor-pointer flex justify-between items-center text-lg font-semibold text-leaf bg-white hover:bg-cream/70 border-b border-gold-accent/20 transition duration-200;
         }
-        /* FIX: max-height: 0 and overflow-hidden ensures the content is hidden and allows the smooth slide */
+        /* REVERTED: Content is visible by default (no max-height: 0) */
         .faq-answer {
-            max-height: 0; 
-            @apply p-4 text-stone-700 bg-cream/70 overflow-hidden;
-            transition: max-height 0.3s ease-out; /* Smooth slide effect */
+            /* Removed max-height: 0 and transition to make it visible */
+            @apply p-4 text-stone-700 bg-cream/70 overflow-visible; 
         }
         .faq-container {
             @apply border border-gold-accent/30 rounded-xl shadow-lg mb-4;
@@ -102,50 +101,11 @@
             },
         }
 
-        // CORRECTED JavaScript for Collapsible FAQ 
-        document.addEventListener('DOMContentLoaded', function() {
-            const questions = document.querySelectorAll('.faq-question');
-            
-            questions.forEach(question => {
-                // Initialize the question containers to ensure rounded corners look right
-                question.closest('.faq-container').querySelector('.faq-answer').style.maxHeight = null;
-
-                question.addEventListener('click', () => {
-                    const answer = question.nextElementSibling;
-                    const icon = question.querySelector('.faq-icon');
-                    const container = question.closest('.faq-container');
-
-                    // Close all other answers and reset their icons/styles
-                    questions.forEach(q => {
-                        if (q !== question) {
-                            const otherAnswer = q.nextElementSibling;
-                            otherAnswer.style.maxHeight = null;
-                            q.querySelector('.faq-icon').textContent = '+';
-                            q.classList.remove('active'); // Remove active state
-                        }
-                    });
-
-                    // Toggle the clicked answer
-                    if (answer.style.maxHeight) {
-                        // Close the answer
-                        answer.style.maxHeight = null;
-                        icon.textContent = '+';
-                        question.classList.remove('active');
-                        container.classList.remove('rounded-b-none'); // Restore container bottom radius
-                        question.classList.remove('rounded-b-none'); // Restore question bottom radius
-                        answer.classList.remove('rounded-b-lg');
-                    } else {
-                        // Open the answer
-                        answer.style.maxHeight = answer.scrollHeight + 32 + "px"; // Add some padding for visual space (32px = p-4*2)
-                        icon.textContent = '−'; // Use minus sign
-                        question.classList.add('active');
-                        container.classList.add('rounded-b-none'); // Remove container bottom radius when open
-                        question.classList.add('rounded-b-none'); // Remove question bottom radius when open
-                        answer.classList.add('rounded-b-lg');
-                    }
-                });
-            });
-        });
+        // ORIGINAL JS LOGIC RESTORED: This code just sets up Tailwind config and does not interfere with the FAQ state.
+        // If you need the original logic that caused all items to open on click without closing others, 
+        // that original script was actually making all of them behave as a separate toggle (not an accordion).
+        // Since you want the original state (all open by default), we will remove the previous script block entirely.
+        
     </script>
 </head>
 
@@ -190,7 +150,7 @@
         <h3 class="text-4xl font-bold text-leaf pb-2 mb-12 text-center header-font">Featured Botanical Provisions</h3>
 
         <div class="guarantee-banner">
-            <span class="text-3xl text-gold-accent">🔒</span>
+            <span class="text-3xl text-gold-accent">ðŸ”’</span>
             <p class="text-center font-bold text-lg sm:text-xl tracking-wide">
                 Every product is backed by its **Manufacturer's Full Money-Back Guarantee**. Try Risk-Free.
             </p>
@@ -223,20 +183,20 @@
                 
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
-                        "I no longer feel the 3 PM energy crash, and my focus during demanding projects is noticeably sharper. This doesn't feel like a jolt—it feels like my body is truly performing at a higher, more consistent level." 
-                        <span>— William R., Verified User</span>
+                        "I no longer feel the 3 PM energy crash, and my focus during demanding projects is noticeably sharper. This doesn't feel like a joltâ€”it feels like my body is truly performing at a higher, more consistent level." 
+                        <span>â€” William R., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "After 4 weeks, I noticed a subtle but powerful lift in my energy. I'm more active in the evenings and sleeping better too. Highly recommend for anyone over 40." 
-                        <span>— Sarah J., Verified User</span>
+                        <span>â€” Sarah J., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "The best thing about this is the sustained mental clarity. I've switched from a second cup of coffee to this, and the difference is night and day."
-                        <span>— Michael L., Verified User</span>
+                        <span>â€” Michael L., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "Energy levels are higher and more consistent throughout the entire day. A game-changer for overall well-being."
-                        <span>— Jane D., Verified User</span>
+                        <span>â€” Jane D., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
-                        "This is the foundation of my regimen. I notice a huge difference when I don't take it—the energy is just cleaner and more sustainable."
-                        <span>— Robert V., Verified User</span>
+                        "This is the foundation of my regimen. I notice a huge difference when I don't take itâ€”the energy is just cleaner and more sustainable."
+                        <span>â€” Robert V., Verified User</span>
                     </blockquote>
                 </div>
                 
@@ -273,16 +233,16 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "I was up 3-4 times a night and always felt exhausted. Now, after two months, I'm consistently sleeping through the night or waking up only once. It's been life-changing for my energy levels." 
-                        <span>— David K., Verified User</span>
+                        <span>â€” David K., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "My flow is stronger and more consistent. The weak stream I used to dread is gone, and I feel much more comfortable throughout the day." 
-                        <span>— Robert G., Verified User</span>
+                        <span>â€” Robert G., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
-                        "Excellent results. It took about 6 weeks, but the difference in nightly visits is truly significant. I’ve recommended this to two friends already."
-                        <span>— Anthony M., Verified User</span>
+                        "Excellent results. It took about 6 weeks, but the difference in nightly visits is truly significant. Iâ€™ve recommended this to two friends already."
+                        <span>â€” Anthony M., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "I highly recommend this for anyone struggling with frequent nighttime visits. It restored my sleep quality."
-                        <span>— Paul V., Verified User</span>
+                        <span>â€” Paul V., Verified User</span>
                     </blockquote>
                 </div>
                 
@@ -319,19 +279,19 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "The persistent 'ringing' that was driving me crazy is noticeably quieter now. I also find I can follow conversations much better in crowded places. It's a genuine relief." 
-                        <span>— Susan L., Verified User</span>
+                        <span>â€” Susan L., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "After three months, the difference is undeniable. I don't have to ask people to repeat themselves as often, and my sensitivity to loud noises seems to have decreased." 
-                        <span>— George T., Verified User</span>
+                        <span>â€” George T., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "The best thing about this is the sustained mental clarity. I've switched from a second cup of coffee to this, and the difference is night and day."
-                        <span>— Michael L., Verified User</span>
+                        <span>â€” Michael L., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "Energy levels are higher and more consistent throughout the entire day. A game-changer for overall well-being."
-                        <span>— Jane D., Verified User</span>
+                        <span>â€” Jane D., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
-                        "This is the foundation of my regimen. I notice a huge difference when I don't take it—the energy is just cleaner and more sustainable."
-                        <span>— Robert V., Verified User</span>
+                        "This is the foundation of my regimen. I notice a huge difference when I don't take itâ€”the energy is just cleaner and more sustainable."
+                        <span>â€” Robert V., Verified User</span>
                     </blockquote>
                 </div>
                 
@@ -359,7 +319,7 @@
                 
                 <div class="description-box mb-4 flex-grow">
                     <p class="text-sm text-stone-700 font-bold mb-2">**Deep Dive: Rebalancing the Oral Ecosystem**</p>
-                    <p class="text-xs text-stone-700">Moving beyond simple cleaning, this supplement is an advanced oral probiotic, delivering over **3.5 Billion CFU of beneficial strains** specifically chosen for the mouth's unique environment. Its purpose is to displace harmful, plaque-forming bacteria and recolonize the mouth with protective flora. This action naturally reduces gum inflammation, strengthens dental resilience against erosion, and attacks the internal source of chronic bad breath. It’s a foundational product for maintaining a **robust, self-defending oral ecosystem**.</p>
+                    <p class="text-xs text-stone-700">Moving beyond simple cleaning, this supplement is an advanced oral probiotic, delivering over **3.5 Billion CFU of beneficial strains** specifically chosen for the mouth's unique environment. Its purpose is to displace harmful, plaque-forming bacteria and recolonize the mouth with protective flora. This action naturally reduces gum inflammation, strengthens dental resilience against erosion, and attacks the internal source of chronic bad breath. Itâ€™s a foundational product for maintaining a **robust, self-defending oral ecosystem**.</p>
                 </div>
 
                 <p class="text-xs text-stone-500 mb-4">**Client Efficacy Report:** Dental hygienists often report seeing less plaque and healthier gum tissue in regular users, confirming its efficacy in promoting a balanced oral environment.</p>
@@ -367,19 +327,19 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "My dental hygienist noticed the difference after three months. Less plaque buildup and my gums looked noticeably healthier. The change in my breath confidence is a complete game-changer." 
-                        <span>— Mark T., Verified Customer</span>
+                        <span>â€” Mark T., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "I used to get constant canker sores and have sensitive gums. Since starting this, those issues have almost completely vanished. It truly fortified my mouth." 
-                        <span>— Jessica P., Verified Customer</span>
+                        <span>â€” Jessica P., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
-                        "Fresher breath all day, every day. It works from the inside out and is the best solution I’ve found for maintaining my oral health between checkups."
-                        <span>— Chris V., Verified Customer</span>
+                        "Fresher breath all day, every day. It works from the inside out and is the best solution Iâ€™ve found for maintaining my oral health between checkups."
+                        <span>â€” Chris V., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "A subtle but fantastic improvement in overall mouth comfort. I wish I had started using oral probiotics years ago."
-                        <span>— Daniel W., Verified Customer</span>
+                        <span>â€” Daniel W., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "Best oral supplement I've ever tried. My mouth feels cleaner, and my gums look pinker and healthier."
-                        <span>— Laura S., Verified Customer</span>
+                        <span>â€” Laura S., Verified Customer</span>
                     </blockquote>
                 </div>
 
@@ -415,19 +375,19 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "I no longer feel that dull, grinding ache, and I can garden and walk my dog much farther now. It truly feels like my joints have been perfectly re-oiled." 
-                        <span>— Pamela H., Verified Customer</span>
+                        <span>â€” Pamela H., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "Morning stiffness is virtually gone. I feel mobile right away and can get up and move without that familiar creakiness. This is a top-tier supplement."
-                        <span>— Edward F., Verified Customer</span>
+                        <span>â€” Edward F., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "My knees haven't felt this good in years. The difference in my overall range of motion is astounding. Highly, highly recommend this formula."
-                        <span>— Ben S., Verified Customer</span>
+                        <span>â€” Ben S., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "I play tennis and noticed less joint fatigue and better recovery after matches. A noticeable upgrade in my joint health regimen."
-                        <span>— Chloe K., Verified Customer</span>
+                        <span>â€” Chloe K., Verified Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "A truly life-altering product for anyone with joint concerns. I feel twenty years younger on my morning run."
-                        <span>— Mark T., Verified Customer</span>
+                        <span>â€” Mark T., Verified Customer</span>
                     </blockquote>
                 </div>
 
@@ -455,7 +415,7 @@
 
                 <div class="description-box mb-4 flex-grow">
                     <p class="text-sm text-stone-700 font-bold mb-2">**Deep Dive: Hormonal Balance & Overnight Thermogenesis**</p>
-                    <p class="text-xs text-stone-700">This sophisticated, stimulant-free formula is a two-in-one metabolic and sleep aid. It supports the transition to **deep, restorative N-REM sleep** using natural calming agents like **Melatonin and L-Theanine**. Crucially, it leverages the science that poor sleep disrupts key fat-regulating hormones (Leptin and Ghrelin). By normalizing the sleep cycle, it balances these hormones and supports the body’s natural **nighttime thermogenesis** (fat-burning metabolism), ensuring you wake up rested, less hungry, and with natural weight management support.</p>
+                    <p class="text-xs text-stone-700">This sophisticated, stimulant-free formula is a two-in-one metabolic and sleep aid. It supports the transition to **deep, restorative N-REM sleep** using natural calming agents like **Melatonin and L-Theanine**. Crucially, it leverages the science that poor sleep disrupts key fat-regulating hormones (Leptin and Ghrelin). By normalizing the sleep cycle, it balances these hormones and supports the bodyâ€™s natural **nighttime thermogenesis** (fat-burning metabolism), ensuring you wake up rested, less hungry, and with natural weight management support.</p>
                 </div>
 
                 <p class="text-xs text-stone-500 mb-4">**Client Efficacy Report:** Users praise the product's ability to facilitate deep sleep without morning grogginess, leading to better mood and reduced daytime stress-eating.</p>
@@ -463,16 +423,16 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "I'm sleeping better than I have in years, and the scale is finally moving again. It's a subtle but consistent, healthy weight loss, and I feel incredible when I wake up." 
-                        <span>— Gary M., Verified Purchase</span>
+                        <span>â€” Gary M., Verified Purchase</span>
                         <hr class="my-2 border-t border-cream/30">
                         "I fall asleep faster and stay asleep! The bonus of waking up feeling lighter and less bloated is fantastic. A great two-in-one solution."
-                        <span>— Lisa T., Verified Purchase</span>
+                        <span>â€” Lisa T., Verified Purchase</span>
                         <hr class="my-2 border-t border-cream/30">
                         "No grogginess at all, just deep, uninterrupted sleep. My late-night snacking has stopped completely because I'm genuinely tired and resting."
-                        <span>— Steven W., Verified Purchase</span>
+                        <span>â€” Steven W., Verified Purchase</span>
                         <hr class="my-2 border-t border-cream/30">
                         "Helped me break through a weight loss plateau by improving my sleep quality. It's truly restorative."
-                        <span>— Diane K., Verified Purchase</span>
+                        <span>â€” Diane K., Verified Purchase</span>
                     </blockquote>
                 </div>
 
@@ -501,7 +461,7 @@
                 
                 <div class="description-box mb-4 flex-grow">
                     <p class="text-sm text-stone-700 font-bold mb-2">**Deep Dive: Glucose Metabolism & Cravings Control**</p>
-                    <p class="text-xs text-stone-700">This comprehensive formula is the pillar of metabolic health, specifically designed to optimize the body’s handling of glucose. It employs potent compounds like **Berberine, Cinnamon Bark, and Chromium** to enhance **insulin sensitivity** and support the efficient uptake of sugar into cells, where it is used for energy instead of being stored as fat. This stabilizing action eliminates the rollercoaster of energy spikes and crashes, drastically reducing the impulse for **carbohydrate and sugar cravings** and promoting long-term, balanced energy regulation.</p>
+                    <p class="text-xs text-stone-700">This comprehensive formula is the pillar of metabolic health, specifically designed to optimize the bodyâ€™s handling of glucose. It employs potent compounds like **Berberine, Cinnamon Bark, and Chromium** to enhance **insulin sensitivity** and support the efficient uptake of sugar into cells, where it is used for energy instead of being stored as fat. This stabilizing action eliminates the rollercoaster of energy spikes and crashes, drastically reducing the impulse for **carbohydrate and sugar cravings** and promoting long-term, balanced energy regulation.</p>
                 </div>
 
                 <p class="text-xs text-stone-500 mb-4">**Client Efficacy Report:** Users frequently cite reduced reliance on sugar/carbs and a more sustained, "even" energy level throughout the day.</p>
@@ -509,16 +469,16 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "This has made an enormous difference in my cravings. I no longer feel that overwhelming urge for sweets after a meal, and my energy doesn't dip at 3 PM like it used to. I feel more in control." 
-                        <span>— Sandra P., Verified User</span>
+                        <span>â€” Sandra P., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "A life-saver for my husband. His mid-day slump is gone, and he's not raiding the pantry for carbs anymore. Much more consistent energy." 
-                        <span>— Helen R., Verified User</span>
+                        <span>â€” Helen R., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "The best combination of ingredients for metabolic support I've ever found. It provides a noticeable 'even keel' feeling throughout the day."
-                        <span>— Kevin M., Verified User</span>
+                        <span>â€” Kevin M., Verified User</span>
                         <hr class="my-2 border-t border-cream/30">
                         "It effectively manages my appetite and helps me make better food choices without feeling deprived."
-                        <span>— Richard B., Verified User</span>
+                        <span>â€” Richard B., Verified User</span>
                     </blockquote>
                 </div>
                 
@@ -555,16 +515,16 @@
                 <div class="review-scroll-container">
                     <blockquote class="review-quote">
                         "The mental fog has lifted entirely. It's a calm, profound ability to concentrate and retain complex information. A true must-have for high-demand work and feeling sharper than ever." 
-                        <span>— Elijah B., Premium Rated Customer</span>
+                        <span>â€” Elijah B., Premium Rated Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "I feel like I'm finally using all of my brain. Complex topics are easier to grasp, and my memory retention for key details is much stronger." 
-                        <span>— Sarah D., Premium Rated Customer</span>
+                        <span>â€” Sarah D., Premium Rated Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "No jitters, just an incredibly sharp, focused mind. I've been able to complete projects faster and with fewer mistakes since starting this."
-                        <span>— Alex H., Premium Rated Customer</span>
+                        <span>â€” Alex H., Premium Rated Customer</span>
                         <hr class="my-2 border-t border-cream/30">
                         "It provides a clean, sustained focus that lasts the entire workday. Absolutely critical for my productivity."
-                        <span>— Vivian L., Premium Rated Customer</span>
+                        <span>â€” Vivian L., Premium Rated Customer</span>
                     </blockquote>
                 </div>
                 
@@ -588,7 +548,7 @@
                     <span class="faq-icon text-2xl font-light">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p class="text-sm">These are not standard, off-the-shelf supplements. Each product in the **Mastered Health Arsenal** has been rigorously **vetted for its specific mechanism of action** (Deep Dive). They focus on targeting the biological root causes of age-related decline—from mitochondrial function to synovial fluid health—rather than just masking symptoms. We prioritize clinically supported ingredients and optimal bio-availability.</p>
+                    <p class="text-sm">These are not standard, off-the-shelf supplements. Each product in the **Mastered Health Arsenal** has been rigorously **vetted for its specific mechanism of action** (Deep Dive). They focus on targeting the biological root causes of age-related declineâ€”from mitochondrial function to synovial fluid healthâ€”rather than just masking symptoms. We prioritize clinically supported ingredients and optimal bio-availability.</p>
                 </div>
             </div>
 
