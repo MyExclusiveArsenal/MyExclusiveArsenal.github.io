@@ -12,6 +12,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
+            /* Using Tailwind classes for background and text color defined in config */
             @apply bg-cream text-stone-700;
         }
 
@@ -38,15 +39,6 @@
             color: #D4AF37; /* Matches gold-accent */
         }
 
-        /* Tailwind Configuration for Styles Block (to ensure custom colors are available) */
-        .bg-terracotta { background-color: #CC7A6B; }
-        .text-cream { color: #F8F5EE; }
-        .text-leaf { color: #4A6958; }
-        .bg-leaf { background-color: #4A6958; }
-        .text-sage-200 { color: #8F9E94; /* approximate light sage */ }
-        .border-gold-accent\/50 { border-color: rgba(212, 175, 55, 0.5); }
-        .hover\:bg-terracotta\/90:hover { background-color: rgba(204, 122, 107, 0.9); }
-        
         /* Custom styles for enhanced descriptions */
         .description-box {
             @apply bg-cream/70 p-4 rounded-lg border border-gold-accent/30 mb-4 shadow-sm;
@@ -71,16 +63,16 @@
             padding-right: 10px; /* Ensures scrollbar doesn't cover content */
             margin-bottom: 1rem; /* Adds space below the scroll area */
         }
-
+        
         /* FAQ Styling */
         .faq-question {
-            @apply p-4 cursor-pointer flex justify-between items-center text-lg font-semibold text-leaf bg-white hover:bg-cream/70 border-b border-gold-accent/20 transition duration-200 rounded-t-lg;
+            @apply p-4 cursor-pointer flex justify-between items-center text-lg font-semibold text-leaf bg-white hover:bg-cream/70 border-b border-gold-accent/20 transition duration-200;
         }
+        /* FIX: max-height: 0 and overflow-hidden ensures the content is hidden and allows the smooth slide */
         .faq-answer {
-            @apply p-4 text-stone-700 bg-cream/70 rounded-b-lg;
-            display: none; /* Controlled by JavaScript */
-            transition: max-height 0.3s ease-out;
-            overflow: hidden;
+            max-height: 0; 
+            @apply p-4 text-stone-700 bg-cream/70 overflow-hidden;
+            transition: max-height 0.3s ease-out; /* Smooth slide effect */
         }
         .faq-container {
             @apply border border-gold-accent/30 rounded-xl shadow-lg mb-4;
@@ -104,37 +96,52 @@
                         'leaf': '#4A6958',
                         'cream': '#F8F5EE',
                         'gold-accent': '#D4AF37', /* Added for a luxurious touch */
+                        'sage-200': '#8F9E94', /* Defined here for Tailwind consistency */
                     },
                 },
             },
         }
 
-        // JavaScript for Collapsible FAQ
+        // CORRECTED JavaScript for Collapsible FAQ 
         document.addEventListener('DOMContentLoaded', function() {
             const questions = document.querySelectorAll('.faq-question');
+            
             questions.forEach(question => {
+                // Initialize the question containers to ensure rounded corners look right
+                question.closest('.faq-container').querySelector('.faq-answer').style.maxHeight = null;
+
                 question.addEventListener('click', () => {
                     const answer = question.nextElementSibling;
                     const icon = question.querySelector('.faq-icon');
+                    const container = question.closest('.faq-container');
 
-                    // Close all other answers
+                    // Close all other answers and reset their icons/styles
                     questions.forEach(q => {
                         if (q !== question) {
-                            q.nextElementSibling.style.display = 'none';
+                            const otherAnswer = q.nextElementSibling;
+                            otherAnswer.style.maxHeight = null;
                             q.querySelector('.faq-icon').textContent = '+';
-                            q.classList.remove('bg-cream/70');
+                            q.classList.remove('active'); // Remove active state
                         }
                     });
 
                     // Toggle the clicked answer
-                    if (answer.style.display === 'block') {
-                        answer.style.display = 'none';
+                    if (answer.style.maxHeight) {
+                        // Close the answer
+                        answer.style.maxHeight = null;
                         icon.textContent = '+';
-                        question.classList.remove('bg-cream/70');
+                        question.classList.remove('active');
+                        container.classList.remove('rounded-b-none'); // Restore container bottom radius
+                        question.classList.remove('rounded-b-none'); // Restore question bottom radius
+                        answer.classList.remove('rounded-b-lg');
                     } else {
-                        answer.style.display = 'block';
-                        icon.textContent = '-';
-                        question.classList.add('bg-cream/70');
+                        // Open the answer
+                        answer.style.maxHeight = answer.scrollHeight + 32 + "px"; // Add some padding for visual space (32px = p-4*2)
+                        icon.textContent = '−'; // Use minus sign
+                        question.classList.add('active');
+                        container.classList.add('rounded-b-none'); // Remove container bottom radius when open
+                        question.classList.add('rounded-b-none'); // Remove question bottom radius when open
+                        answer.classList.add('rounded-b-lg');
                     }
                 });
             });
@@ -195,7 +202,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761665475739.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=MITOLYN+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="MITOLYN Weight Loss Support Proprietary Formula for metabolism, energy, and youthful cellular function." 
                         class="w-full h-full object-contain">
                 </a>
@@ -244,7 +251,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761665841197.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=PROSTAVIVE+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="ProstaVive Advanced Formula for healthy prostate size, function, and urinary tract health." 
                         class="w-full h-full object-contain">
                 </a>
@@ -290,7 +297,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761667578691.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=AUDIFORT+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="Audifort Healthy Hearing Supplement for sound clarity and ear health." 
                         class="w-full h-full object-contain">
                 </a>
@@ -339,7 +346,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761666757464.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=PRODENTIM+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="ProDentim Supplement for healthy teeth, gums, fresh breath, and immune support." 
                         class="w-full h-full object-contain">
                 </a>
@@ -387,7 +394,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761666308305.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=JOINT+GENESIS+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="Joint Genesis Dietary Supplement for joint support, mobility, and cartilage health." 
                         class="w-full h-full object-contain">
                 </a>
@@ -435,7 +442,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761666433953.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=SLEEP+LEAN+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="Sleep Lean Dietary Supplement for powerful weight loss and promoting deep, restful sleep." 
                         class="w-full h-full object-contain">
                 </a>
@@ -480,7 +487,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761665520258.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=GLUCO+6+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="Gluco 6 Advanced Formula for supporting energy regulation, reducing cravings, and boosting energy levels." 
                         class="w-full h-full object-contain">
                 </a>
@@ -526,7 +533,7 @@
                     class="w-full h-64 rounded-md mb-4 flex items-center justify-center border-b-4 border-gold-accent/70 overflow-hidden hover:opacity-90 transition duration-300">
                     
                     <img src="Images/1761665562348.jpg" 
-                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=PINEAL+GUARDIAN+X+MISSING';" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/400x400/CC7A6B/FFFFFF?text=Image+Unavailable';" 
                         alt="Pineal Guardian X dietary supplement to unlock mind's full potential and support cognitive function." 
                         class="w-full h-full object-contain">
                 </a>
@@ -576,7 +583,7 @@
             <h3 class="text-4xl font-bold text-leaf pb-4 mb-8 text-center header-font">Frequently Asked Questions (F.A.Q)</h3>
 
             <div class="faq-container">
-                <div class="faq-question">
+                <div class="faq-question rounded-t-xl">
                     <span>What sets these products apart from standard supplements?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
                 </div>
@@ -606,7 +613,7 @@
             </div>
             
             <div class="faq-container">
-                <div class="faq-question">
+                <div class="faq-question rounded-b-xl">
                     <span>What is the money-back guarantee policy?</span>
                     <span class="faq-icon text-2xl font-light">+</span>
                 </div>
@@ -633,9 +640,10 @@
             
             <div class="flex flex-wrap justify-center space-x-4 md:space-x-8 mb-6">
                 <a href="mailto:MyExclusiveArsenal@gmail.com" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Contact Us</a>
-                <a href="#privacy-policy" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Privacy Policy</a>
-                <a href="#terms-of-service" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Terms of Service</a>
-                <a href="#medical-disclaimer" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Medical Disclaimer</a>
+                <a href="privacy-policy.html" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Privacy Policy</a>
+                <a href="terms-of-service.html" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Terms of Service</a>
+                <a href="medical-disclaimer.html" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Medical Disclaimer</a>
+                <a href="affiliate-disclosure.html" class="text-cream text-sm hover:text-gold-accent transition duration-300 font-medium whitespace-nowrap">Affiliate Disclosure</a>
             </div>
 
             <p class="text-sage-200 text-xs mt-6">&copy; 2025 Wellness Curated. All Rights Reserved. **Affiliate Disclosure** applies to all product links on this page.</p>
