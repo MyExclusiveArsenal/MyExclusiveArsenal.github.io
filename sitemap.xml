@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://myexclusivearsenal.github.io/</loc>
+        <lastmod>2025-10-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <url>
+        <loc>https://myexclusivearsenal.github.io/privacy-policy.html</loc>
+        <lastmod>2025-10-28</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://myexclusivearsenal.github.io/terms-of-service.html</loc>
+        <lastmod>2025-10-28</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://myexclusivearsenal.github.io/medical-disclaimer.html</loc>
+        <lastmod>2025-10-28</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://myexclusivearsenal.github.io/affiliate-disclosure.html</loc>
+        <lastmod>2025-10-28</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+</urlset>
